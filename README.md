@@ -16,7 +16,7 @@ When dying, you **keep all your equipment** on you while still **dropping your r
 <li><b>Tools</b> and <b>Weapons</b> including Trident, Flint and Steal and Fishing Rods
 <li>Clocks, Compasses and <b>Recovery Compasses</b>
 <li>All Golden Apples, Potions and Totems
-<li>Every type of Arrow and Firework Rockets
+<li>Every type of Arrow, all Torches and Firework Rockets
 <li>Ender Pearls and Ender Eyes
 <li>Goat Horns, Spyglasses, all Maps and all Buckets
 <li>All types of Boats, Minecarts, Saddles and Horse Armor
