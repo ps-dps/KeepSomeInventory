@@ -3,4 +3,5 @@
 .beet_cache
 __pycache__
 build
+releases
 *.pdn
