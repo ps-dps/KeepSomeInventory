@@ -1,0 +1,68 @@
+
+import requests
+
+url = "https://raw.githubusercontent.com/Arcensoth/mcdata/master/processed/reports/registries/item/data.json"
+response = requests.get(url)
+rawData = response.content
+rawString = rawData.decode()
+rawItems = rawString.split("\n")[2:-2]
+
+def discardItem(item):
+    if ("compass" in item or
+    "clock" in item or
+
+    "_sword" in item or
+    "_axe" in item or
+    "_pickaxe" in item or
+    "_hoe" in item or
+    "_shovel" in item or
+    "trident" in item or
+    "bow" in item or
+
+    "shield" in item or
+    "shears" in item or
+    "flint_and_steal" in item or
+    "_on_a_stick" in item or
+    "spyglass" in item or
+    "fishing_rod" in item or
+
+    "written_book" in item or
+    "writable_book" in item or
+
+    "bucket" in item or
+    "firework_rocket" in item or
+    "arrow" in item or
+    "map" in item or
+    "_boat" in item or
+    "minecart" in item or
+    "saddle" in item or
+    "_horse_armor" in item or
+    
+    "golden_apple" in item or
+    "totem_of_undying" in item or
+    "potion" in item or
+    "goat_horn" in item or
+    "ender_eye" in item or
+    "ender_pearl" in item or
+
+    "_helmet" in item or
+    "_chestplate" in item or
+    "_leggings" in item or
+    "_boots" in item or
+    "elytra" in item or
+    "carved_pumpkin" in item or
+    "skeleton_skull" in item or
+    "head" in item):
+        return True
+    return False
+
+itemTag = {"values":[]}
+
+for item in rawItems:
+    item= item.removesuffix(",").strip()[1:-1]
+    if discardItem(item):
+        continue
+    itemTag['values'].append({
+        "id": item,
+        "required": False
+    })
