@@ -1,3 +1,167 @@
 
-function ps-keep:hello_world:
-    say Heelo Wurldh
+import ps-keep:drop_on_death as drop_on_death
+
+append function_tag load:load {"values":["ps-keep:load"]}
+function ps-keep:load:
+    #> Add main objective
+    scoreboard objectives add ps-keep deathCount
+
+    #> Set gamerules and send warnings
+    execute store result score #keepInv ps-keep run gamerule keepInventory
+    execute if score #keepInv ps-keep matches 0 run tellraw @a ["",{"text":"Keep","color":"#83150D"},{"text":"Some","color":"#248C88"},{"text":"Inventory","color":"#83150D"},{"text":" changed the gamerule "},{"text":"keepInventory","color":"gold"},{"text":" to "},{"text":"true","color":"red"},{"text":"\n \u0020"},{"text":"-> this is necessary for the data pack to work","color":"gray"}]
+    gamerule keepInventory true
+    execute store result score #respawn ps-keep run gamerule doImmediateRespawn
+    execute if score #respawn ps-keep matches 1 run tellraw @a ["",{"text":"Keep","color":"#83150D"},{"text":"Some","color":"#248C88"},{"text":"Inventory","color":"#83150D"},{"text":" changed the gamerule "},{"text":"doImmediateRespawn","color":"gold"},{"text":" to "},{"text":"false","color":"red"},{"text":"\n \u0020"},{"text":"-> this is necessary for the data pack to work","color":"gray"}]
+    gamerule doImmediateRespawn false
+
+    #> Set up constants
+    scoreboard players set .2 ps-keep 2
+    scoreboard players set .5 ps-keep 5
+    scoreboard players set .6 ps-keep 6
+    scoreboard players set .9 ps-keep 9
+    scoreboard players set .-81 ps-keep -81
+    scoreboard players set .-325 ps-keep -325
+
+    #> Set up config scoreboard
+    scoreboard objectives add ps-keep.config dummy [{"text":"Keep Some Inventory","color":"gold"},{"text":" Config","color":"red"}]
+    execute unless score item_despawn_offset[-32768_to_5999] ps-keep.config = item_despawn_offset[-32768_to_5999] ps-keep.config run scoreboard players set item_despawn_offset[-32768_to_5999] ps-keep.config -6000
+    execute unless score keep_experience[0|1] ps-keep.config = keep_experience[0|1] ps-keep.config run scoreboard players set keep_experience[0|1] ps-keep.config 0
+    execute unless score keep_items[0|1|2] ps-keep.config = keep_items[0|1|2] ps-keep.config run scoreboard players set keep_items[0|1|2] ps-keep.config 1
+
+function ps-keep:config:
+    tellraw @s [
+        "",
+        { "text": "\n" },
+        { "text": "Keep Some Inventory", "color": "gold" },
+        { "text": " Config",  "color": "red" },
+        { "text": "\n" },
+        { "text": "Item despawn offset ",
+            "clickEvent": {
+                "action": "suggest_command",
+                "value": "/scoreboard players set item_despawn_offset[-32768_to_5999] ps-keep.config " },
+            "hoverEvent": {
+                "action": "show_text",
+                "contents": "Negative numbers extend how long the items lay on the ground for - in ticks" }},
+        { "text": "[-32768 to 5999]", "color": "gray" },
+        { "text": " " },
+        { "score": {
+                "name": "item_despawn_offset[-32768_to_5999]",
+                "objective": "ps-keep.config" },
+            "color": "red" },
+        { "text": "\n" },
+        { "text": "Keep Experience ",
+            "clickEvent": {
+                "action": "suggest_command",
+                "value": "/scoreboard players set keep_experience[0|1] ps-keep.config " },
+            "hoverEvent": {
+                "action": "show_text",
+                "contents": "0 - The data packs behavior 1 - Vanilla keepInventory behavior" }},
+        { "text": "[0 | 1]", "color": "gray" },
+        { "text": " " },
+        { "score": {
+                "name": "keep_experience[0|1]",
+                "objective": "ps-keep.config" },
+            "color": "red" },
+        { "text": "\n" },
+        { "text": "Keep Items ",
+            "clickEvent": {
+                "action": "suggest_command",
+                "value": "/scoreboard players set keep_items[0|1|2] ps-keep.config " },
+            "hoverEvent": {
+                "action": "show_text",
+                "contents": "0 - Drop all Items 1 - Keep Some Inventory 2 - Vanilla keepInventory behavior" }},
+        { "text": "[0 | 1 | 2]", "color": "gray" },
+        { "text": " " },
+        { "score": {
+                "name": "keep_items[0|1|2]",
+                "objective": "ps-keep.config" },
+            "color": "red" },
+        { "text": "\n " }
+    ]
+
+advancement ps-keep:on_death {
+    "criteria": { "requirement": { "trigger": "minecraft:tick",
+        "conditions": {
+        "player": [{
+            "condition": "minecraft:value_check",
+            "value": {
+                "type": "minecraft:score",
+                "target": "this",
+                "score": "ps-keep" },
+            "range": 1
+    }]}}},
+    "rewards": {
+    "function": "ps-keep:on_death"
+    }}
+
+function ps-keep:on_death:
+    advancement revoke @s only ps-keep:on_death
+    scoreboard players reset @s ps-keep
+
+    execute if score keep_items[0|1|2] ps-keep.config matches 0..1
+        run data modify storage ps:keep spawn set from entity @s Inventory
+    execute if score keep_items[0|1|2] ps-keep.config matches 0
+        run clear @s
+    execute if score keep_items[0|1|2] ps-keep.config matches 1
+        run clear @s #ps-keep:drop_on_death
+    execute if score keep_items[0|1|2] ps-keep.config matches 1
+        run data modify storage ps:keep inv set from storage ps:keep spawn
+    execute if score keep_items[0|1|2] ps-keep.config matches 1
+        run data modify storage ps:keep kept set from entity @s Inventory
+
+    execute if score keep_items[0|1|2] ps-keep.config matches 0
+        run function ps-keep:spawn_all:
+            function ps-keep:spawn_next:
+                summon item ~ ~ ~ {Tags:["ps-keep"],Item:{id:"minecraft:stone",Count:1b}}
+                execute store result entity @e[type=item,tag=ps-keep,limit=1] Age short 1 run scoreboard players get item_despawn_offset[-32768_to_5999] config_ps-keep
+                execute as @e[type=item,tag=ps-keep,limit=1] run data modify entity @s Item set from storage ps:keep spawn[-1]
+                tag @e[type=item,tag=ps-keep,limit=1] remove ps-keep
+            data remove storage ps:keep spawn[-1]
+            execute if data storage ps:keep spawn[0] run function ps-keep:spawn_all
+
+    execute if score keep_items[0|1|2] ps-keep.config matches 1
+        run function ps-keep:loop_through_inv:
+            execute store success score .bool2 ps-keep run data modify storage ps:keep inv[-1] set from storage ps:keep kept[-1]
+            # if bool2 = 0 -> inv[-1] and kept[-1] are equal | bool2 = 1 if they are different
+            execute if score .bool2 ps-keep matches 0 run data remove storage ps:keep kept[-1]
+            execute if score .bool2 ps-keep matches 1 run function ps-keep:spawn_next
+            data remove storage ps:keep inv[-1]
+            data remove storage ps:keep spawn[-1]
+
+            execute store success score .bool1 ps-keep run execute if data storage ps:keep kept[0]
+            execute if score .bool1 ps-keep matches 0 if data storage ps:keep spawn[0] run function ps-keep:spawn_all
+            execute if score .bool1 ps-keep matches 1 run function ps-keep:loop_through_inv
+
+    execute if score keep_experience[0|1] ps-keep.config matches 0
+        run function ps-keep:drop_xp:
+            execute store result score .level ps-keep run xp query @s levels
+            scoreboard players operation .xp ps-keep = .level ps-keep
+            scoreboard players operation .xp ps-keep *= .level ps-keep
+            scoreboard players operation #temp ps-keep = .level ps-keep
+
+            execute if score .level ps-keep matches 17..31 run scoreboard players operation .xp ps-keep *= .5 ps-keep
+            execute if score .level ps-keep matches 32.. run scoreboard players operation .xp ps-keep *= .9 ps-keep
+
+            execute if score .level ps-keep matches 1..16 run scoreboard players operation #temp ps-keep *= .6 ps-keep
+            execute if score .level ps-keep matches 17..31 run scoreboard players operation #temp ps-keep *= .-81 ps-keep
+            execute if score .level ps-keep matches 32.. run scoreboard players operation #temp ps-keep *= .-325 ps-keep
+
+            scoreboard players operation .xp ps-keep += #temp ps-keep
+            execute if score .level ps-keep matches 17.. run scoreboard players operation .xp ps-keep /= .2 ps-keep
+
+            execute if score .level ps-keep matches 17..31 run scoreboard players add .xp ps-keep 360
+            execute if score .level ps-keep matches 32.. run scoreboard players add .xp ps-keep 2220
+
+            execute store result score #temp ps-keep run xp query @s points
+
+            scoreboard players operation .xp ps-keep += #temp ps-keep
+
+            summon experience_orb ~ ~ ~ {Tags:["ps-keep"]}
+            execute store result entity @e[type=experience_orb,tag=ps-keep,limit=1] Value short 1 run scoreboard players get .xp ps-keep
+            tag @e[type=experience_orb,tag=ps-keep,limit=1] remove ps-keep
+
+            xp set @s 0 levels
+            xp set @s 0 points
+
+
+item_tag ps-keep:drop_on_death drop_on_death.itemTag
