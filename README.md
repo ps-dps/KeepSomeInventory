@@ -11,7 +11,7 @@ This data pack aims to give dangerous areas their **risk back** while still allo
 ## **Features**
 When dying, you **keep all your equipment** on you while still **dropping your resources**.
 
-<details><summary>You will <u>keep these items</u>:</summary>
+<details><summary>You will <b>keep these items</b>: &nbsp; ( 🠋 )</summary>
 <li><b>Armor</b>, <b>Elytra</b>, Heads, Skulls and Carved Pumpkins
 <li><b>Tools</b> and <b>Weapons</b> including Trident, Flint and Steal and Fishing Rods
 <li>Clocks, Compasses and <b>Recovery Compasses</b>
@@ -32,15 +32,15 @@ After dying, your **items will despawn after 10 minutes** instead of despawning 
 ➔ _the time items take to despawn can be modifed using the [config](#configure-the-pack)_
 
 ## **Configure the Pack**
-If you are an admin or have cheats enabled, you can easily configure the data pack's behavior by running the following command:
+If you are an admin or have cheats enabled, you can easily **configure the data pack's behavior** by running the following command:
 ```mcfunction
 function ps-keep:config
 ```
-This will open this menu in the chat:
+That will **open this menu in the chat**:
 
 ![config](images/config.png)
 
-You can change the values by clicking on the text.
+You can then **change the values by clicking on the text**.
 - `Item despawn offset`, is the **time removed** from the default 5 minutes **despawn timer** in ticks
     - The default is `-6000` ticks, with this you get **5 minutes extra**, so your items despawn after 10 minutes
     - Setting it to `5999` will mean, that they despawn after just a **single tick**
