@@ -1,8 +1,8 @@
 # <img src="src/pack.png" height=25> **Keep Some Inventory**
 
-**Isn't it annoying when you die and your items are far away and surrounded by danger?**
+<font color="#14CC14">**Isn't it annoying when you die and your items are far away and surrounded by danger?**</font>
 
-With this data pack no longer, since you **keep your fighting equipment** like weapons, tools and armor **on you when dying**!
+With this data pack no longer, since you <font color="#14CC14">**keep your fighting equipment**</font> like weapons, tools and armor <font color="#14CC14">**on you when dying**</font>!
 
 ## **Overview**
 **Personally I don't like** playing with the `keepInventory` gamerule set to `true` because it feels cheap to go somewhere dangerous **without the risk** losing anything.
