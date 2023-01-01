@@ -57,7 +57,7 @@ You can then **change the values by clicking on the text**.
 If you want to **adjust what items you keep or drop on death**, you can **modify** the `drop_on_death` item tag at `/data/ps-keep/tags/items/drop_on_death.json`.<br>
 All the items listed in this tag **will be dropped on death**, so if you want to **keep a specific item**, that you normally drop, just **remove it's entry** from this list.
 
-If you are **building the data pack from source**, you can easily adjust the items by modifying the [`drop_on_death.bolt`](src/data/ps-keep/modules/drop_on_death.bolt) file.
+When **building the data pack from source**, you can easily adjust the items by modifying the [`drop_on_death.bolt`](src/data/ps-keep/modules/drop_on_death.bolt) file.
 
 ---
 Check me out on other platforms:
