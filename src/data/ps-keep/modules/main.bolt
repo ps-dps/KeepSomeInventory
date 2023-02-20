@@ -110,8 +110,9 @@ function ps-keep:on_death:
         run data modify storage ps:keep kept set from entity @s Inventory
 
     execute if score keep_items[0|1|2] ps-keep.config matches 0
+        if data storage ps:keep spawn[0]
         run function ps-keep:spawn_all:
-            function ps-keep:spawn_next:
+            execute function ps-keep:spawn_next:
                 summon item ~ ~ ~ {Tags:["ps-keep"],Item:{id:"minecraft:stone",Count:1b}}
                 execute store result entity @e[type=item,tag=ps-keep,limit=1] Age short 1 run scoreboard players get item_despawn_offset[-32768_to_5999] config_ps-keep
                 execute as @e[type=item,tag=ps-keep,limit=1] run data modify entity @s Item set from storage ps:keep spawn[-1]
@@ -122,13 +123,14 @@ function ps-keep:on_death:
     execute if score keep_items[0|1|2] ps-keep.config matches 1
         run function ps-keep:loop_through_inv:
             execute store success score .bool2 ps-keep run data modify storage ps:keep inv[-1] set from storage ps:keep kept[-1]
+            if score .bool2 ps-keep matches 0 unless data storage ps:keep kept[0] scoreboard players set .bool2 ps-keep 1
             # if bool2 = 0 -> inv[-1] and kept[-1] are equal | bool2 = 1 if they are different
             execute if score .bool2 ps-keep matches 0 run data remove storage ps:keep kept[-1]
             execute if score .bool2 ps-keep matches 1 run function ps-keep:spawn_next
             data remove storage ps:keep inv[-1]
             data remove storage ps:keep spawn[-1]
 
-            execute store success score .bool1 ps-keep run execute if data storage ps:keep kept[0]
+            execute store success score .bool1 ps-keep if data storage ps:keep kept[0]
             execute if score .bool1 ps-keep matches 0 if data storage ps:keep spawn[0] run function ps-keep:spawn_all
             execute if score .bool1 ps-keep matches 1 run function ps-keep:loop_through_inv
 
@@ -165,3 +167,4 @@ function ps-keep:on_death:
 
 
 item_tag ps-keep:drop_on_death drop_on_death.itemTag
+item_tag ps-keep:vanish drop_on_death.itemTag
