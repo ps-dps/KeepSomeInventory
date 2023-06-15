@@ -2,7 +2,7 @@
 import requests
 
 blackList = ["compass", "clock", "_sword", "_axe", "_pickaxe", "_hoe", "_shovel", "trident", "bow", "shield",
-    "shears", "flint_and_steal", "_on_a_stick", "spyglass", "fishing_rod", "written_book", "writable_book",
+    "shears", "flint_and_steel", "_on_a_stick", "spyglass", "fishing_rod", "written_book", "writable_book",
     "bucket", "firework_rocket", "arrow", "map", "_boat", "_raft", "minecart", "saddle", "_horse_armor", "golden_apple",
     "totem_of_undying", "potion", "goat_horn", "ender_eye", "ender_pearl", "torch", "_helmet", "_chestplate",
     "_leggings", "_boots", "elytra", "carved_pumpkin", "skeleton_skull", "head"]
