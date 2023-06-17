@@ -9,10 +9,14 @@ function ps-keep:load:
     #> Set gamerules and send warnings
     execute store result score #keepInv ps-keep run gamerule keepInventory
     execute if score #keepInv ps-keep matches 0 run tellraw @a ["",{"text":"Keep","color":"#83150D"},{"text":"Some","color":"#248C88"},{"text":"Inventory","color":"#83150D"},{"text":" changed the gamerule "},{"text":"keepInventory","color":"gold"},{"text":" to "},{"text":"true","color":"red"},{"text":"\n \u0020"},{"text":"-> this is necessary for the data pack to work","color":"gray"}]
-    gamerule keepInventory true
+    execute in overworld run gamerule keepInventory true
+    execute in nether run gamerule keepInventory true
+    execute in the_end run gamerule keepInventory true
     execute store result score #respawn ps-keep run gamerule doImmediateRespawn
     execute if score #respawn ps-keep matches 1 run tellraw @a ["",{"text":"Keep","color":"#83150D"},{"text":"Some","color":"#248C88"},{"text":"Inventory","color":"#83150D"},{"text":" changed the gamerule "},{"text":"doImmediateRespawn","color":"gold"},{"text":" to "},{"text":"false","color":"red"},{"text":"\n \u0020"},{"text":"-> this is necessary for the data pack to work","color":"gray"}]
-    gamerule doImmediateRespawn false
+    execute in overworld run gamerule doImmediateRespawn false
+    execute in nether run gamerule doImmediateRespawn false
+    execute in the_end run gamerule doImmediateRespawn false
 
     #> Set up constants
     scoreboard players set .2 ps-keep 2
