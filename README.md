@@ -60,7 +60,4 @@ All the items listed in this tag **will be dropped on death**, so if you want to
 When **building the data pack from source**, you can easily adjust the items by modifying the [`drop_on_death.bolt`](src/data/ps-keep/modules/drop_on_death.bolt) file.
 
 ---
-Check me out on other platforms:
-
-[<img src="https://docs.modrinth.com/img/logo.svg" height="40" width="40"/>](https://modrinth.com/user/PuckiSilver)
-[<img src="https://www.planetminecraft.com/images/layout/favicon-64.png" height="40" width="40"/>](https://www.planetminecraft.com/member/puckisilver)
+[![PuckiSilver on GitHub](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/GitHub.png)](https://github.com/PuckiSilver)[![PuckiSilver on modrinth](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/modrinth.png)](https://modrinth.com/user/PuckiSilver)[![PuckiSilver on PlanetMinecraft](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/PlanetMinecraft.png)](https://planetminecraft.com/m/PuckiSilver)[![PuckiSilver on PayPal](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/PayPal.png)](https://paypal.me/puckisilver)
