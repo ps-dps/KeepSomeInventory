@@ -120,7 +120,7 @@ function ps-keep:on_death:
         run function ps-keep:spawn_all:
             execute function ps-keep:spawn_next:
                 summon item ~ ~ ~ {Tags:["ps-keep"],Item:{id:"minecraft:stone",Count:1b}}
-                execute store result entity @e[type=item,tag=ps-keep,limit=1] Age short 1 run scoreboard players get item_despawn_offset config.ps-keep
+                execute store result entity @e[type=item,tag=ps-keep,limit=1] Age short 1 run scoreboard players get item_despawn_offset ps-keep.config
                 execute as @e[type=item,tag=ps-keep,limit=1] run data modify entity @s Item set from storage ps:keep spawn[-1]
                 tag @e[type=item,tag=ps-keep,limit=1] remove ps-keep
             data remove storage ps:keep spawn[-1]
