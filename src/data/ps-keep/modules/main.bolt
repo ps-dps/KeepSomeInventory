@@ -103,7 +103,7 @@ function ps-keep:on_death:
     scoreboard players reset @s ps-keep
 
     execute if score keep_items ps-keep.config matches 0..1
-        run clear @s #ps-keep:all{Enchantments:[{id:"vanishing_curse"}]}
+        run clear @s #ps-keep:all[enchantments~[{"enchantments":"vanishing_curse","levels":{"min":1}}]]
     execute if score keep_items ps-keep.config matches 0..1
         run data modify storage ps:keep spawn set from entity @s Inventory
     execute if score keep_items ps-keep.config matches 0
