@@ -127,6 +127,7 @@ function ps-keep:on_death:
             execute if data storage ps:keep spawn[0] run function ps-keep:spawn_all
 
     execute if score keep_items ps-keep.config matches 1
+        if data storage ps:keep spawn[0]
         run function ps-keep:loop_through_inv:
             execute store success score .bool2 ps-keep run data modify storage ps:keep inv[-1] set from storage ps:keep kept[-1]
             if score .bool2 ps-keep matches 0 unless data storage ps:keep kept[0] scoreboard players set .bool2 ps-keep 1

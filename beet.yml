@@ -1,6 +1,6 @@
 name: KeepSomeInventory
 author: PuckiSilver
-version: v1.4.0
+version: v1.4.1
 output: build
 require:
   - bolt
