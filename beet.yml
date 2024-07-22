@@ -1,20 +1,20 @@
 name: KeepSomeInventory
 author: PuckiSilver
-version: v1.4.2
+version: v2.0.0
 output: build
 require:
   - bolt
 
 data_pack:
-  load:
-    - libs/lantern-load.zip
-    - src
+  load: src
   name: KeepSomeInventory
   description: Don't lose your equipment when dying
 
 pipeline:
   - mecha
-  - beet.contrib.minify_json
+  - plugins.remove_empty_functions
+  - plugins.credit
+  # - beet.contrib.minify_json
+
 meta:
-  bolt:
-    entrypoint: ps-keep:main
+  credit: pskeep2
