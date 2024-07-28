@@ -10,3 +10,10 @@ if score #keep_inventory pskeep2 matches 0 tellraw @a {
     "color":"red",
 }
 gamerule keepInventory true
+
+scoreboard players set #2 pskeep2 2
+scoreboard players set #5 pskeep2 5
+scoreboard players set #6 pskeep2 6
+scoreboard players set #9 pskeep2 9
+scoreboard players set #-81 pskeep2 -81
+scoreboard players set #-325 pskeep2 -325
