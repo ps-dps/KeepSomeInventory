@@ -60,6 +60,7 @@ execute function ~/drop_xp:
     if score .level pskeep2 matches 17..31 scoreboard players operation .xp pskeep2 *= #-81 pskeep2
     if score .level pskeep2 matches 32.. scoreboard players operation .xp pskeep2 *= #-325 pskeep2
     # divide to correct for .5 values
+    if score .level pskeep2 matches 17.. scoreboard players operation #level_squared pskeep2 /= #2 pskeep2
     if score .level pskeep2 matches 17.. scoreboard players operation .xp pskeep2 /= #2 pskeep2
     # add flat values
     if score .level pskeep2 matches 17..31 scoreboard players add .xp pskeep2 360
