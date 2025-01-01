@@ -20,8 +20,8 @@ This data pack aims to give dangerous areas their **risk back** while still allo
 - You can **modify the items that should be dropped** on death by opening the zip/jar and modifying the tag located at `data/pskeep2/tags/item/drop.json`.
 
 ## CraftBukkit Servers (Spigot, Paper, Purpur, etc.)
-This datapack works with CraftBukkit, provided you set `/gamerule keepInventory true` in each world, because CraftBukkit has separate gamerules for each world (the Nether and the End are considered separate worlds).
-Not setting the keepInventory rule to true that world or dimension will cause the default Minecraft death and drop item behaviour.
+This datapack **works with CraftBukkit**, provided you set `/gamerule keepInventory true` in each world, because CraftBukkit has separate gamerules for each world (the Nether and the End are considered separate worlds).
+Not setting the `keepInventory` rule to `true` for a world or dimension will cause the default Minecraft death and drop item behaviour.
 
 ---
 [![PuckiSilver on GitHub](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/GitHub.png)](https://github.com/PuckiSilver)[![PuckiSilver on modrinth](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/modrinth.png)](https://modrinth.com/user/PuckiSilver)[![PuckiSilver on PlanetMinecraft](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/PlanetMinecraft.png)](https://planetminecraft.com/m/PuckiSilver)[![PuckiSilver on PayPal](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/PayPal.png)](https://paypal.me/puckisilver)
